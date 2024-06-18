@@ -476,7 +476,7 @@ RestClient::Connection::performCurlRequest(const std::string& uri,
   if (this->progressFn) {
     curl_easy_setopt(getCurlHandle(), CURLOPT_NOPROGRESS, 0);
     curl_easy_setopt(getCurlHandle(),
-                     CURLOPT_PROGRESSFUNCTION,
+                     CURLOPT_XFERINFOFUNCTION,
                     this->progressFn);
     if (this->progressFnData) {
       curl_easy_setopt(getCurlHandle(),
@@ -649,7 +649,6 @@ RestClient::Connection::put(const std::string& url,
   up_obj.length = data.size();
 
   /** Now specify we want to PUT data */
-  curl_easy_setopt(getCurlHandle(), CURLOPT_PUT, 1L);
   curl_easy_setopt(getCurlHandle(), CURLOPT_UPLOAD, 1L);
   /** set read callback function */
   curl_easy_setopt(getCurlHandle(), CURLOPT_READFUNCTION,
